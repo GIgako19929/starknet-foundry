@@ -1,5 +1,29 @@
 name: Rust
+name: Rust
 
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Rust
+      run: rustup update stable
+    - name: Build
+      run: cargo build --verbose
+    - name: List tests
+      run: cargo test -- --list
+    - name: Run tests
+      run: cargo test --verbose -- --nocapture
 on:
   push:
     branches: [ "master" ]
